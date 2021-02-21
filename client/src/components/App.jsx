@@ -1,12 +1,27 @@
 import React from 'react';
 import axios from 'axios';
+import PokemonList from './PokemonList.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
+    this.state = {
+      pokemonList: []
+    }
+    this.getAllPokemon = this.getAllPokemon.bind(this);
+  }
 
-    // }
+  componentDidMount() {
+    this.getAllPokemon();
+  }
+
+  getAllPokemon() {
+    axios.get('/api')
+      .then((results) => {
+        this.setState({
+          pokemonList: results.data
+        })
+      })
   }
 
   render() {
@@ -20,7 +35,8 @@ export default class App extends React.Component {
           <option>Fire</option>
           <option>Water</option>
         </select>
-        <div>
+        <PokemonList pokemonList={this.state.pokemonList}/>
+        {/* <div>
           <h3>Bulbasaur</h3>
           <img src="http://vignette4.wikia.nocookie.net/nintendo/images/4/43/Bulbasaur.png/revision/latest?cb=20141002083518&path-prefix=en" />
         </div>
@@ -31,7 +47,7 @@ export default class App extends React.Component {
         <div>
           <h3>Venusaur</h3>
           <img src="http://vignette2.wikia.nocookie.net/nintendo/images/b/be/Venusaur.png/revision/latest?cb=20141002083423&path-prefix=en" />
-        </div>
+        </div> */}
       </div>
     )
   }

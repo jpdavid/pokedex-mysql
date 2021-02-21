@@ -7,6 +7,12 @@ let connection = mysql.createConnection({
   database: 'pokedex'
 });
 
-connection.connect();
+connection.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected!');
+  }
+});
 
 module.exports = connection;
